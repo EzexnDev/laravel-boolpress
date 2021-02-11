@@ -82,7 +82,7 @@
                     @if (Auth::check())
                         <button class="btn btn-primary m-4"><a class="mr-5" href="{{ route("private") }}"
                             style="color: white">Prova la rotta privata</a></button>
-                            <button class="btn btn-primary m-4"><a class="mr-5" href="{{ route("post.create") }}"
+                        <button class="btn btn-primary m-4"><a class="mr-5" href="{{ route("post.create") }}"
                                 style="color: white">Crea un Post</a></button>
 
                      @else

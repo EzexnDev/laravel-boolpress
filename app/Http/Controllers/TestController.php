@@ -108,9 +108,13 @@ class TestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        if (Auth::check()) {
+            return view("update",compact("post"));
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -122,7 +126,13 @@ class TestController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::find($id);
+        $data = $request->all();
+        $post->update($data);
+
+        $post->hasInfo->update($data);
+
+        return redirect()->route('post');
     }
 
     /**
@@ -133,6 +143,16 @@ class TestController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post->hasInfo->delete();
+
+        foreach ($post->tags as $tag) {
+
+            $post->tags()->detach($tag->id);
+        }
+        $post->delete();
+
+
+        return redirect()->back();
     }
 }
