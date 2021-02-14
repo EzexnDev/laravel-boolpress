@@ -13,6 +13,12 @@
                     @method("GET")
                     <button type="submit" @if (!\Auth::check()) disabled @endif class="btn btn-warning float-left mr-4">Modifica</button>
                 </form>
+                <a href="{{ route('post.show', $post->id)}}">Vedi Dettagli</a>
+                <form action="{{ route('post.destroy', $post->id) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button type="submit">Elimina</button>
+                  </form>
             @endforeach
             </div>
         </div>

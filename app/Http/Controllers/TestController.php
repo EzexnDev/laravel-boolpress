@@ -8,9 +8,16 @@ use App\Post;
 use App\Tag;
 use App\Category;
 use App\PostInformation;
+use App\Http\Requests\PostValidator;
 
 class TestController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth', ['except' => [
+            'index', 'show'
+        ]]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,21 +29,20 @@ class TestController extends Controller
 
         return view('post', compact('posts'));
     }
-    public function guest(){
+    // public function guest(){
+    //     $message = 'Ciao User, purtroppo non sei autentificato, non vedrai i contenuti del sito';
+    //     return view('test',compact('message'));
+    //     // Rotta /free-zone/hello
+    //     // Stampare 'Ciao Utente'
+    // }
 
-        $message = 'Ciao User, purtroppo non sei autentificato, non vedrai i contenuti del sito';
-        return view('test',compact('message'));
-        // Rotta /free-zone/hello
-        // Stampare 'Ciao Utente'
-    }
-
-    public function logged(){
-        $user = Auth::user();
-        $message = 'Ciao '.$user->name;
-        return view('test', compact('message'));
-        //  Rotta: /restricted-zone/hello
-        // Stampare 'Ciao @NomeUtente'
-    }
+    // public function logged(){
+    //     $user = Auth::user();
+    //     $message = 'Ciao '.$user->name;
+    //     return view('test', compact('message'));
+    //     //  Rotta: /restricted-zone/hello
+    //     // Stampare 'Ciao @NomeUtente'
+    // }
 
 
     /**
@@ -48,7 +54,12 @@ class TestController extends Controller
     {
         $tags = Tag::all();
         $categories = Category::all();
-        return view("create", compact("tags", "categories"));
+        if (Auth::check()) {
+            $user = Auth::user();
+            return view('create', compact(['categories', 'tags', 'user']));
+          } else {
+            return redirect()->route('post.index');
+          }
     }
 
     /**
@@ -57,38 +68,28 @@ class TestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostValidator $request)
     {
-        $data = $request->all();
+        $validated = $request->validated();
 
-        $validated = $request->validate([
-            'title' => 'required|string|min:3',
-            'author' => 'required|string|min:3',
+        // dd($validated);
+
+        $newpost = Post::create([
+            'title' => $validated['title'],
+            'author' => $validated['author'],
+            'category_id' => $validated['categories'],
         ]);
 
-        $newPost = Post::create([
-            "title" => $validated["title"],
-            "author" => $validated["author"],
-            "category_id" => $data["categories"]
+        $newPostInformation = PostInformation::create([
+            'post_id' => $newpost->id,
+            'description' => $validated['description'],
+            'slug' => 'I am a Slug!'
         ]);
 
 
-        $newPost->save();
+        $newpost->tags()->attach($validated['tags']);
 
-        $postInfo = PostInformation::create([
-            "post_id" => $newPost->id,
-            "description" => $data["description"],
-            "slug" => "prova_slug"
-        ]);
-
-        $postInfo->save();
-
-        foreach ($data["tags"] as $tag) {
-            $newPost->tags()->attach($tag);
-        }
-
-
-        return redirect()->route('post');
+        return redirect()->route('post.index');
     }
 
     /**
@@ -99,7 +100,8 @@ class TestController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::find($id);
+        return view('watch_post', compact('post'));
     }
 
     /**
@@ -132,7 +134,7 @@ class TestController extends Controller
 
         $post->hasInfo->update($data);
 
-        return redirect()->route('post');
+        return redirect()->route('post.index');
     }
 
     /**

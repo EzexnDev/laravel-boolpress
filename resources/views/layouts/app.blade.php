@@ -79,18 +79,19 @@
         <main class="py-4">
             <div class='container'>
                 <div class="row d-flex justify-content-center">
-                    @if (Auth::check())
+                    <button class="btn btn-primary m-4"><a class="mr-5" href="{{ route("post.create") }}"
+                        style="color: white">Crea un Post</a></button>
+                        {{-- @if (Auth::check())
                         <button class="btn btn-primary m-4"><a class="mr-5" href="{{ route("private") }}"
                             style="color: white">Prova la rotta privata</a></button>
-                        <button class="btn btn-primary m-4"><a class="mr-5" href="{{ route("post.create") }}"
-                                style="color: white">Crea un Post</a></button>
+
 
                      @else
                         <button class="btn btn-secondary m-4"><a href="{{ route("hello_free") }}" style="color: white">Prova la
                             rotta libera</a></button>
                     @endif
                     <button class="btn btn-secondary m-4"><a href="{{ route("post") }}" style="color: white"> Vedi tutti i Post
-                        </a></button>
+                        </a></button> --}}
 
                 </div>
             </div>

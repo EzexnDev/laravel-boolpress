@@ -21,24 +21,20 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::prefix('restricted')
-->middleware('auth')
-->group(function() {
-    Route::get('hello','TestController@logged')
-    ->name('private');
-    Route::resource('post', 'TestController');
-});
+Route::resource('/post', 'TestController');
 
-Route::prefix('free-zone')
-->group(function () {
-    Route::get('hello', 'TestController@guest')
+// Route::prefix('restricted')->middleware('auth')->group(function() {
+//     Route::get('hello','TestController@logged')->name('private');
+//     Route::resource('post', 'TestController');
+// });
 
-    ->name('hello_free');
+// Route::prefix('free-zone')->group(function () {
+//     Route::get('hello', 'TestController@guest')->name('hello_free');
 
-    Route::get('/post', 'TestController@index')->name('post');
+//     Route::get('/post', 'TestController@index')->name('post');
 
 
-});
+// });
 
 
 // Route::resource('/post', 'TestController');
