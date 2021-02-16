@@ -78,6 +78,7 @@
 
         <main class="py-4">
             <div class='container'>
+                <example-component></example-component>
                 <div class="row d-flex justify-content-center">
                     <button class="btn btn-primary m-4"><a class="mr-5" href="{{ route("post.create") }}"
                         style="color: white">Crea un Post</a></button>

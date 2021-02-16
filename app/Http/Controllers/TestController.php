@@ -54,12 +54,14 @@ class TestController extends Controller
     {
         $tags = Tag::all();
         $categories = Category::all();
-        if (Auth::check()) {
-            $user = Auth::user();
-            return view('create', compact(['categories', 'tags', 'user']));
-          } else {
-            return redirect()->route('post.index');
-          }
+        // if (Auth::check()) {
+        //     $user = Auth::user();
+        //     return view('create', compact(['categories', 'tags', 'user']));
+        //   } else {
+        //     return redirect()->route('post.index');
+        //   }
+        $user = Auth::user();
+        return view('create', compact(['categories', 'tags', 'user']));
     }
 
     /**
@@ -112,11 +114,12 @@ class TestController extends Controller
      */
     public function edit(Post $post)
     {
-        if (Auth::check()) {
-            return view("update",compact("post"));
-        } else {
-            return redirect()->back();
-        }
+        // if (Auth::check()) {
+        //     return view("update",compact("post"));
+        // } else {
+        //     return redirect()->back();
+        // }
+        return view("update",compact("post"));
     }
 
     /**
