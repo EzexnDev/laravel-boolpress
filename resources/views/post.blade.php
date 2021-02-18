@@ -5,7 +5,9 @@
     <div class="Container">
         <div class='row d-flex justify-content-center'>
             <div class="justify-content-center">
-            @foreach($posts as $post)
+             <example-component v-bind:posts="{{ $posts}}">
+
+            {{-- @foreach($posts as $post)
                 <h4>{{$post->author}}</h4>
                 <p>{{$post->title}}</p>
                 <form method="GET" action="{{ route('post.edit', $post) }}">
@@ -17,11 +19,21 @@
                 <form action="{{ route('post.destroy', $post->id) }}" method="post">
                     @csrf
                     @method('delete')
-                    <button type="submit">Elimina</button>
+                    <button type="submit">Elimina</button> --}}
+
+                </example-component>
                   </form>
-            @endforeach
+            {{-- @endforeach --}}
             </div>
         </div>
     </div>
 
+
+
+{{-- <script type="text/javascript">
+    var jArray = json_encode($posts);
+ </script> --}}
+
+
 @endsection
+
