@@ -2,38 +2,50 @@
 
 @section('content')
 
-    <div class="Container">
-        <div class='row d-flex justify-content-center'>
-            <div class="justify-content-center">
-             <example-component v-bind:posts="{{ $posts}}">
-
-            {{-- @foreach($posts as $post)
-                <h4>{{$post->author}}</h4>
-                <p>{{$post->title}}</p>
-                <form method="GET" action="{{ route('post.edit', $post) }}">
-                    @csrf
-                    @method("GET")
-                    <button type="submit" @if (!\Auth::check()) disabled @endif class="btn btn-warning float-left mr-4">Modifica</button>
-                </form>
-                <a href="{{ route('post.show', $post->id)}}">Vedi Dettagli</a>
-                <form action="{{ route('post.destroy', $post->id) }}" method="post">
-                    @csrf
-                    @method('delete')
-                    <button type="submit">Elimina</button> --}}
-
-                </example-component>
-                  </form>
-            {{-- @endforeach --}}
-            </div>
-        </div>
+<div class="Container">
+    <div class="row">
+        <a class="p-5" href="{{route("posts.create")}}">Nuovo Post</a>
     </div>
+    <div class='row d-flex'>
+        <example-component
+        :posts="{{$posts}}"
+        >
+        </example-component>
+       
+        {{-- @foreach($posts as $post)
+            <div class="col-3 post_card d-flex flex-column mb-4">
 
-
-
-{{-- <script type="text/javascript">
-    var jArray = json_encode($posts);
- </script> --}}
-
-
+                
+                <div>
+                    <h4>Post Author: {{$post->author}}</h4>
+                </div>
+                
+                    <p>{{$post->title}}</p>
+                    <span>{{$post->postToPostInformation->description}}</span>
+                    <p>{{$post->postToCategory->title}}</p>
+                    <div class="flex-row row">
+                    @foreach($post->postToTag as $tag)
+    
+                        <span>{{'#'.$tag->name.' '}}</span>
+    
+                    @endforeach
+                    </div>
+                    
+    
+                    <div class="">
+                        <a href="{{route("posts.edit", $post->id)}}">Aggiorna</a>
+                        <a href="{{route("posts.show", $post->id)}}">Vedi Dettagli</a>
+    
+                        <form action="{{ route('posts.destroy', $post->id) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button type="submit">Elimina</button>
+                        </form>
+                    </div>
+                
+            </div>
+        @endforeach --}}
+    </div>
+</div>
 @endsection
 

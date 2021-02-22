@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
 use App\Category;
 
 class CategorySeeder extends Seeder
@@ -16,3 +15,6 @@ class CategorySeeder extends Seeder
         factory(Category::class, 20)->create();
     }
 }
+
+
+//v. appunti db seeder 

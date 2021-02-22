@@ -6,7 +6,6 @@ use App\Post;
 use App\Tag;
 use Illuminate\Support\Facades\DB;
 
-
 class PostTagSeeder extends Seeder
 {
     /**

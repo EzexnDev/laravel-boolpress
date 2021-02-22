@@ -11,7 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(PostSeeder::class);
         $this->call(PostInformationSeeder::class);
@@ -19,3 +18,9 @@ class DatabaseSeeder extends Seeder
         $this->call(PostTagSeeder::class);
     }
 }
+
+
+// se richiamo qui dentro tutte le tabelle non ho bisogno di salvare l'id dell'elemento nel seed
+// Facendo la chiamata in ordine di tabelle mi salva anche cronologicamente le chiavi e dipendenze 
+// lancio dal terminale solo il db seeder che imposta già l'ordine delle tabelle 
+// php artisan:seed prende automaticamente da db seed

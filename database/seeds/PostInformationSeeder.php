@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
 use App\PostInformation;
 
 class PostInformationSeeder extends Seeder
@@ -13,6 +12,6 @@ class PostInformationSeeder extends Seeder
      */
     public function run()
     {
-        factory(PostInformation::class, 120)->create();
+        factory(PostInformation::class, 50)->create();
     }
 }

@@ -7,8 +7,8 @@ use Faker\Generator as Faker;
 
 $factory->define(PostInformation::class, function (Faker $faker) {
     return [
-        'post_id' => $faker->unique()->numberBetween(1, 120),
-        'description' => $faker->paragraph(3),
-        'slug' => $faker->slug(),
+        'post_id' => $faker->unique()->numberBetween(1, 50),
+        'description' => $faker->paragraph(4),
+        'slug' => $faker->slug,
     ];
 });

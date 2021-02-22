@@ -7,8 +7,8 @@ use Faker\Generator as Faker;
 
 $factory->define(Post::class, function (Faker $faker) {
     return [
-        'category_id' => $faker->numberBetween(1,20),
-        'title' => $faker->sentence(4),
-        'author' => $faker->name,
+        'category_id' => $faker->numberBetween(1, 20),
+        'title' => $faker->sentence(3),
+        'author' => $faker->sentence(2),
     ];
 });
